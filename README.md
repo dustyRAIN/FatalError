@@ -18,3 +18,5 @@ docker-compose up
 ```
 
 Now go to [http://localhost:8080](http://localhost:8080) & make fun of me.
+
+![alt text](https://memegenerator.net/img/instances/61031813/say-it-works-on-my-machine-one-more-time.jpg)
