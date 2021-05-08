@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, request
 from .models import User
+from flask_cors import CORS
 from . import db
 
 main = Blueprint('main', __name__)
+CORS(main)
 
 @main.route('/api/users/', methods=['GET'])
 def get_all_users():
@@ -25,7 +27,6 @@ def get_all_users():
     return response
 
 @main.route('/api/users/', methods=['POST'])
-@cross_origin()
 def create_user():
     user_data = request.get_json()
     new_user = User(
@@ -52,7 +53,6 @@ def create_user():
 
 
 @main.route('/api/users/<id>', methods=['PUT'])
-@cross_origin()
 def edit_user(id):
     user_data = request.get_json()
     user = User.query.filter_by(id = id).first()
@@ -67,7 +67,6 @@ def edit_user(id):
     return 'ok', 200
 
 @main.route('/api/users/<id>', methods=['DELETE'])
-@cross_origin()
 def toggle_delete_user(id):
     user = User.query.filter_by(id = id).first()
     user.deleted = not user.deleted
