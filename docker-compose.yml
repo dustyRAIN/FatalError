@@ -1,0 +1,21 @@
+services:
+    fatal-error-client: 
+        build: 
+            context: ./fatal-error-front
+            dockerfile: Dockerfile
+        ports: 
+            - "8080:3000"
+        expose: 
+            - "3000"
+        
+        depends_on:
+            - fatal-error-server
+
+    
+    fatal-error-server:
+        build:
+            context: ./fatal-error-db
+            dockerfile: Dockerfile
+        ports: 
+            - "5000:5000"
+        

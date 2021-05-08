@@ -1,0 +1,13 @@
+FROM python:3.9.4
+
+RUN pip3 install flask
+
+RUN pip3 install Flask-SQLAlchemy
+
+WORKDIR /db
+
+COPY . .
+
+ENV FLASK_APP api
+
+CMD [ "flask", "run", "--host=0.0.0.0"]
