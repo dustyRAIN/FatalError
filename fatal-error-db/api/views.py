@@ -18,9 +18,14 @@ def get_all_users():
             'mobile': user.mobile,
             'deleted': user.deleted
         })
-    return jsonify({'users': users})
+
+    response = jsonify({'users': users})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    
+    return response
 
 @main.route('/api/users/', methods=['POST'])
+@cross_origin()
 def create_user():
     user_data = request.get_json()
     new_user = User(
@@ -33,16 +38,21 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({
+    response =  jsonify({
         "id": str(new_user.id),
         "firstName": str(new_user.firstName),
         "lastName": str(new_user.lastName),
         "email": str(new_user.email),
         "mobile": str(new_user.mobile),
         "deleted": new_user.deleted
-    }), 201
+    })
+    response.headers.add("Access-Control-Allow-Origin", "*")
+
+    return response
+
 
 @main.route('/api/users/<id>', methods=['PUT'])
+@cross_origin()
 def edit_user(id):
     user_data = request.get_json()
     user = User.query.filter_by(id = id).first()
@@ -57,6 +67,7 @@ def edit_user(id):
     return 'ok', 200
 
 @main.route('/api/users/<id>', methods=['DELETE'])
+@cross_origin()
 def toggle_delete_user(id):
     user = User.query.filter_by(id = id).first()
     user.deleted = not user.deleted
