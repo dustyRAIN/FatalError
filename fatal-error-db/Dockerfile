@@ -12,4 +12,4 @@ COPY . .
 
 ENV FLASK_APP api
 
-CMD [ "flask", "run"]
+CMD [ "flask", "run", "--host=0.0.0.0"]
